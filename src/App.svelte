@@ -1,4 +1,5 @@
 <script>
+	import Modal from './Modal.svelte';
 	export let name;
 	let variableA = 'black';
 
@@ -26,11 +27,23 @@
   const handleClickLoop = (id) => {
     people = people.filter(person => person.id != id);
   };
+
+  let num = 5;
 </script>
 
+{#if num > 20}
+  <p>Greater than 20</p>
+{:else if num > 5}
+  <p>Greater than 5</p>
+{:else}
+  <p>Not greater than 5</p>
+{/if}
+
+<Modal/>
 <main>
 	<h1>Hello {name}!</h1>
 	<p style="color :{variableA}">selamat pagi {variableA}</p>
+	
 	<button on:click={handleClick}>belt update button</button>
 	<!-- <input type="text" on:input={handleInput} value={variableA}/> -->
 	
@@ -47,6 +60,9 @@
 		<div>
 		<h4>{person.name}</h4>
 		<p>{person.age} years old, {person.beltColour} belt.</p>
+		{#if person.beltColour === 'black'}
+        <p><strong>MASTER TIER</strong></p>
+      {/if}
 		<button on:click={() => handleClickLoop(person.id)}>delete</button>
 		</div>
 	{:else}
